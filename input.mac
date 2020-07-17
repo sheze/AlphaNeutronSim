@@ -1,0 +1,11 @@
+/run/initialize
+
+/tracking/verbose 1
+/gps/particle ion
+/gps/ion 2 4 2 0
+#/gps/particle gamma
+/gps/ene/mono 0.5 MeV
+/gps/pos/centre 0 0 -4
+
+/run/printProgress 1
+/run/beamOn 10

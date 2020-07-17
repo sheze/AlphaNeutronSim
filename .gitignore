@@ -1,0 +1,5 @@
+build/*
+inputMac/*
+Record.md
+.vscode/*
+results/*

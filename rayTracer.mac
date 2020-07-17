@@ -1,0 +1,16 @@
+/run/initialize
+
+/gps/particle ion
+/gps/ion 2 4 2 0
+
+/vis/geometry/list
+/vis/open RayTracer
+/vis/viewer/set/background 1 1 1 0
+/vis/viewer/set/upThetaPhi 10 0
+/vis/viewer/set/viewpointThetaPhi 60 0
+/vis/viewer/set/style surface
+/vis/drawVolume
+/vis/viewer/refresh
+
+/run/printProgress 1
+/run/beamOn 10
