@@ -1,11 +1,16 @@
 /run/initialize
 
-/tracking/verbose 1
+#/tracking/verbose 1
 /gps/particle ion
 /gps/ion 2 4 2 0
 #/gps/particle gamma
-/gps/ene/mono 0.5 MeV
-/gps/pos/centre 0 0 -4
+/gps/ene/mono 5.304 MeV
+/gps/pos/type Volume
+/gps/pos/shape Sphere
+/gps/pos/centre 0 0 0
+/gps/pos/radius 0.09 m
+/gps/ang/type iso
 
-/run/printProgress 1
-/run/beamOn 10
+/run/verbose 1
+/run/printProgress 1000
+/run/beamOn 10000

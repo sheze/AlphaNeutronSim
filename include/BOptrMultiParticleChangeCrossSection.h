@@ -16,6 +16,12 @@ class BOptrMultiParticleChangeCrossSection : public G4VBiasingOperator
 
         // It is called at the time a tracking of a particle starts
         void StartTracking(const G4Track* aTrack);
+
+        // For print
+        std::map<const G4ParticleDefinition*, BOptrChangeCrossSection*> GetOperation()
+        {
+            return fBOptrForParticle;
+        }
     
     private:
         virtual G4VBiasingOperation* 

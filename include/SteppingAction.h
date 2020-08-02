@@ -12,7 +12,7 @@ class SteppingAction : public G4UserSteppingAction
 
     private:
         EventAction* fEventAction;
-        std::string particle;
+        double fWeight;
         double fKinetic;
         double fVecX;
         double fVecY;

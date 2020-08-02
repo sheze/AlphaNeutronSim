@@ -11,7 +11,7 @@
 
 BOptrChangeCrossSection::BOptrChangeCrossSection(std::string particleName, 
                                                  std::string name)
-                        : G4VBiasingOperator(name), fSetup(true)
+                        : G4VBiasingOperator(name), fXSMultiple(1.0), fSetup(true)
 {
     fParticleToBias = G4ParticleTable::GetParticleTable()->FindParticle(particleName);
     if(fParticleToBias == nullptr)
@@ -23,6 +23,8 @@ BOptrChangeCrossSection::BOptrChangeCrossSection(std::string particleName,
                     JustWarning,
                     ed); 
     }
+    fXSMultiple = 1000.0;
+    
     std::cout << "Construct operator change cross section" << std::endl;
 }
 
@@ -77,8 +79,6 @@ G4VBiasingOperation* BOptrChangeCrossSection::ProposeOccurenceBiasingOperation(c
     double analogInteractionLength = callingProcess->GetWrappedProcess()->GetCurrentInteractionLength();
     if(analogInteractionLength > DBL_MAX/10.) return 0;
 
-    
-
     // Analog corss-section is well-defined :
     double analogXS = 1./analogInteractionLength;
 
@@ -86,7 +86,7 @@ G4VBiasingOperation* BOptrChangeCrossSection::ProposeOccurenceBiasingOperation(c
     // But at this level, this factor can be made direction dependent, 
     // like in the exponential transform MCNP case, 
     // or it can be chosen differently, depending on the process, etc 
-    double XSTransformation = 100.0;
+    double XSTransformation = fXSMultiple;
 
     // Fetch the operation associated to this callingProcess :
     G4BOptnChangeCrossSection* operation = fChangeCrossSectionOperations[callingProcess];

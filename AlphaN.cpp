@@ -4,6 +4,9 @@
 #include "G4RunManager.hh"
 #include "G4GenericBiasingPhysics.hh"
 #include "Shielding.hh"
+#include "QGSP_BERT_HP.hh"
+#include "QBBC.hh"
+#include "G4RadioactiveDecayPhysics.hh"
 #include "G4VisManager.hh"
 #include "G4VisExecutive.hh"
 #include "G4UImanager.hh"
@@ -64,7 +67,10 @@ int main(int argc, char** argv)
     runManager->SetUserInitialization(geometry);
 
     // Physical list construction and registration, togther with biasing physics
-    Shielding* physicsList = new Shielding;
+    // Shielding* physicsList = new Shielding;
+    // QGSP_BERT_HP* physicsList = new QGSP_BERT_HP();
+    G4VModularPhysicsList* physicsList = new QBBC();
+    physicsList->RegisterPhysics(new G4RadioactiveDecayPhysics);
     G4GenericBiasingPhysics* biasingPhysics = new G4GenericBiasingPhysics();
     biasingFlag.toUpper();
     if(biasingFlag == "ON")

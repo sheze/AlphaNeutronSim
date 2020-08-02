@@ -30,12 +30,13 @@
 
 # To superimpose all of the events from a given run:
 /vis/scene/endOfEventAction accumulate
+/vis/
 # Re-establish auto refreshing and verbosity:
 /vis/viewer/set/autoRefresh true
 /vis/verbose warnings
 
 # set display background color
-/vis/viewer/set/background white
+/vis/viewer/set/background black
 
 /vis/viewer/set/style surface
 /vis/viewer/set/hiddenMarker true

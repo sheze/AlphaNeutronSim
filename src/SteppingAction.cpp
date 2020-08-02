@@ -25,47 +25,42 @@ void SteppingAction::UserSteppingAction(const G4Step* aStep)
     G4Track* aTrack = aStep->GetTrack();
     std::string partName = aTrack->GetDynamicParticle()->GetParticleDefinition()->GetParticleName();
 
-    if (partName != "neutron" && partName != "alpha") 
+    int PDGcode = aTrack->GetDynamicParticle()->GetPDGcode();
+
+    if (partName == "alpha")  return;
+    if (PDGcode > 1000020040) return;
+
+    if (partName != "neutron" ) 
     {
         aTrack->SetTrackStatus(fKillTrackAndSecondaries);
         return;
     }
-    
-    std::string prePhysVolName, postPhysVolName;
-    if(aStep->GetPostStepPoint()->GetPhysicalVolume())
+    else
     {
-         postPhysVolName = aStep->GetPostStepPoint()->GetPhysicalVolume()->GetName();
-    }
-    else return;
+        fKinetic = aStep->GetPreStepPoint()->GetKineticEnergy();
+        if(fKinetic < 1*eV) return;
 
-    if(aStep->GetPreStepPoint()->GetPhysicalVolume())
-    {
-        prePhysVolName = aStep->GetPreStepPoint()->GetPhysicalVolume()->GetName();
+        fVecX = aTrack->GetMomentumDirection().getX();
+        fVecY = aTrack->GetMomentumDirection().getY();
+        fVecZ = aTrack->GetMomentumDirection().getZ();
+
+        fTrackID  = aTrack->GetTrackID();
+        fParentID = aTrack->GetParentID();
+        fWeight   = aTrack->GetWeight();
+
+        SubEvent anSubEvent;
+        anSubEvent.weight   = fWeight;
+        anSubEvent.kinetic  = fKinetic;
+        anSubEvent.vecX     = fVecX;
+        anSubEvent.vecY     = fVecY;
+        anSubEvent.vecZ     = fVecZ;
+        anSubEvent.trackID  = fTrackID;
+        anSubEvent.parentID = fParentID;
+
+        fEventAction->AcceptSubEvent(anSubEvent);
+        aTrack->SetTrackStatus(fKillTrackAndSecondaries);
     }
     
-    if(prePhysVolName  != "physWorld") return;
-    if(postPhysVolName != "physMeasVol") return; 
-
-    fKinetic = aTrack->GetKineticEnergy();
-    if(fKinetic < 1*eV) return;
-
-    fVecX = aTrack->GetMomentumDirection().getX();
-    fVecY = aTrack->GetMomentumDirection().getY();
-    fVecZ = aTrack->GetMomentumDirection().getZ();
-
-    fTrackID     = aTrack->GetTrackID();
-    fParentID    = aTrack->GetParentID();
-
-    SubEvent anSubEvent;
-    anSubEvent.particle    = partName;
-    anSubEvent.kinetic     = fKinetic;
-    anSubEvent.vecX        = fVecX;
-    anSubEvent.vecY        = fVecY;
-    anSubEvent.vecZ        = fVecZ;
-    anSubEvent.trackID     = fTrackID;
-    anSubEvent.parentID    = fParentID;
-
-    fEventAction->AcceptSubEvent(anSubEvent);
-
+    
     return;
 }

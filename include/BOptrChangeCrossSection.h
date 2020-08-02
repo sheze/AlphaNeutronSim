@@ -21,6 +21,9 @@ class BOptrChangeCrossSection : public G4VBiasingOperator
         // Method called at begining of run
         virtual void StartRun();
 
+        // Print the multiple times
+        double GetXSMultiple() {return fXSMultiple;}
+
     private:
         // This method returns the biasing operation that will bias the physics process occurence
         virtual G4VBiasingOperation* 
@@ -50,6 +53,7 @@ class BOptrChangeCrossSection : public G4VBiasingOperator
                                       const G4VParticleChange* particleChangeProduced
                                      );
         std::map<const G4BiasingProcessInterface*, G4BOptnChangeCrossSection*> fChangeCrossSectionOperations;
+        double fXSMultiple;
         bool fSetup;
         const G4ParticleDefinition* fParticleToBias; 
 };

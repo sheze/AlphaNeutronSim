@@ -5,7 +5,7 @@
 
 struct SubEvent
 {
-    std::string particle;
+    double weight;
     double kinetic;
     double vecX;
     double vecY;

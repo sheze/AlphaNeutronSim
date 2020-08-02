@@ -46,11 +46,11 @@ BOptrMultiParticleChangeCrossSection::ProposeOccurenceBiasingOperation(const G4T
 {
     // Examples of limitations imposed to apply the biasing:
     // 1. Limit application of biasing to primary particles only : 
-    if(aTrack->GetParentID() != 0) 
-    {
-        // std::cout << "Not parent track and quit !" << std::endl;
-        return 0;
-    }
+    // if(aTrack->GetParentID() != 0) 
+    // {
+    //     // std::cout << "Not parent track and quit !" << std::endl;
+    //     return 0;
+    // }
 
     // 2. Limit to alpha inelastic interaction
     if(!callingProcess->GetProcessName().contains("alphaInelastic"))         

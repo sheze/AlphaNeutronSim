@@ -10,8 +10,9 @@ EventAction::EventAction() : G4UserEventAction(), fSubEvent({}), fFileName("")
 {
     fFileName = "AlphaEnhanced.csv";
     fOutput.open(fFileName);
-    fOutput << "#EventID \t track ID \t parent ID \t Particle \t kinetic (MeV) \t"
-            << " ( VecX, VecY, VecZ ) \t Interactions \n";
+    fOutput << "EventID \t track ID \t parent ID \t kinetic (MeV) \t"
+            << " ( VecX, VecY, VecZ ) \t "
+            << "Weight\n";
     std::cout << "INFO : Event Action is created !" << std::endl;
     std::cout << "Open file with file-name : " << std::endl;
     std::cout << fFileName << std::endl;
@@ -31,14 +32,15 @@ void EventAction::EndOfEventAction(const G4Event* anEvent)
     int eventID = anEvent->GetEventID();
     for(unsigned int i = 0; i < fSubEvent.size(); i++)
     {
-        fOutput << eventID << "\t" 
+        fOutput << eventID << "\t " 
                 << fSubEvent[i].trackID << "\t" 
                 << fSubEvent[i].parentID << "\t"
-                << fSubEvent[i].particle << "\t" 
                 <<fSubEvent[i].kinetic << "\t"
                 << "( " << fSubEvent[i].vecX << ", " 
                 << fSubEvent[i].vecY << ", "
-                << fSubEvent[i].vecZ << " )"<< "\t" << std::endl;
+                << fSubEvent[i].vecZ << " )\t" 
+                << fSubEvent[i].weight
+                << std::endl;
     }
     // Re-initialization at end of each event
     fSubEvent = {};  
