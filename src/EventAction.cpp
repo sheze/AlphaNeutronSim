@@ -10,8 +10,8 @@ EventAction::EventAction() : G4UserEventAction(), fSubEvent({}), fFileName("")
 {
     fFileName = "AlphaEnhanced.csv";
     fOutput.open(fFileName);
-    fOutput << "EventID \t track ID \t parent ID \t kinetic (MeV) \t"
-            << " ( VecX, VecY, VecZ ) \t "
+    fOutput << "EventID,trackID,parentID,kineticMeV,"
+            << "VecX,VecY,VecZ,"
             << "Weight\n";
     std::cout << "INFO : Event Action is created !" << std::endl;
     std::cout << "Open file with file-name : " << std::endl;
@@ -32,13 +32,13 @@ void EventAction::EndOfEventAction(const G4Event* anEvent)
     int eventID = anEvent->GetEventID();
     for(unsigned int i = 0; i < fSubEvent.size(); i++)
     {
-        fOutput << eventID << "\t " 
-                << fSubEvent[i].trackID << "\t" 
-                << fSubEvent[i].parentID << "\t"
-                <<fSubEvent[i].kinetic << "\t"
-                << "( " << fSubEvent[i].vecX << ", " 
-                << fSubEvent[i].vecY << ", "
-                << fSubEvent[i].vecZ << " )\t" 
+        fOutput << eventID << "," 
+                << fSubEvent[i].trackID << "," 
+                << fSubEvent[i].parentID << ","
+                << fSubEvent[i].kinetic << ","
+                << fSubEvent[i].vecX << "," 
+                << fSubEvent[i].vecY << ","
+                << fSubEvent[i].vecZ << "," 
                 << fSubEvent[i].weight
                 << std::endl;
     }

@@ -67,8 +67,7 @@ int main(int argc, char** argv)
     runManager->SetUserInitialization(geometry);
 
     // Physical list construction and registration, togther with biasing physics
-    // Shielding* physicsList = new Shielding;
-    // QGSP_BERT_HP* physicsList = new QGSP_BERT_HP();
+    // G4VModularPhysicsList* physicsList = new QGSP_BERT_HP();
     G4VModularPhysicsList* physicsList = new QBBC();
     physicsList->RegisterPhysics(new G4RadioactiveDecayPhysics);
     G4GenericBiasingPhysics* biasingPhysics = new G4GenericBiasingPhysics();
@@ -76,7 +75,6 @@ int main(int argc, char** argv)
     if(biasingFlag == "ON")
     {
         biasingPhysics->Bias("alpha");
-        // biasingPhysics->Bias("gamma");
         physicsList->RegisterPhysics(biasingPhysics);
         std::cout <<  "INFO :processes are wrapped for biasing " << std::endl;
     }
@@ -84,7 +82,7 @@ int main(int argc, char** argv)
     {
       std::cout <<  "INFO :processes are not wrapped " << std::endl;
     }
-    physicsList->SetDefaultCutValue(0.001 * mm);
+    physicsList->SetDefaultCutValue(0.0001 * mm);
     physicsList->SetVerboseLevel(1);
     runManager->SetUserInitialization(physicsList);
 

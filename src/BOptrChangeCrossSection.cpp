@@ -23,7 +23,7 @@ BOptrChangeCrossSection::BOptrChangeCrossSection(std::string particleName,
                     JustWarning,
                     ed); 
     }
-    fXSMultiple = 1000.0;
+    fXSMultiple = 100.0;
     
     std::cout << "Construct operator change cross section" << std::endl;
 }
